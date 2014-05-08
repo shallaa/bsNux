@@ -93,18 +93,15 @@ Already up-to-date.
 ```
 #vi ~/git-pull.sh
 #!/bin/bash
-echo "[`date +%Y-%m-%d_%H:%M:%S`]"
 cd /var/ligo/bsShortURL
 tmp=`git pull origin gh-pages`
-if [ "$tmp" = "Already up-to-date." ];
+if [ "$tmp" != "Already up-to-date." ];
 then
-        echo up-to-date
-else
         killall python
         /var/ligo/bsShortURL/django/manage.py runfcgi host=127.0.0.1 port=8088
-        echo update and server restart
+        echo "[`date +%Y-%m-%d_%H:%M:%S`]" update and server restart
+        echo "--------------------------------------------"
 fi
-echo "--------------------------------------------"
 ```
 
 ##### 작성한 Shell Script가 Crontab을 이용해 주기적으로 실행되도록 함 
